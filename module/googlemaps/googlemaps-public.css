@@ -1,0 +1,25 @@
+.gmap-wrap {
+	position:relative;
+}
+.gmap-overlay {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+}
+	.gmap-overlay h1,
+	.gmap-overlay h2,
+	.gmap-overlay h3,
+	.gmap-overlay h4,
+	.gmap-overlay h5,
+	.gmap-overlay h6,
+	.gmap-overlay p {
+		margin:0;
+		padding:0;
+	}
+	.gmap-overlay p {
+		line-height:1.2em;
+	}
+	
+
