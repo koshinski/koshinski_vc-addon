@@ -75,7 +75,7 @@ class Koshinski_vc_addon {
 
 		$this->plugin_name = 'koshinski-vc-addon';
 		$this->version = '1.0.0';
-		$this->vc_required_version = '4.2.2';
+		$this->vc_required_version = '4.4';
 		$this->public_name = 'Visual Composer Addon';
 		$this->textdomain = 'koshinski-vc-addon';
 		

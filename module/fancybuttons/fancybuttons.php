@@ -117,6 +117,9 @@ class Koshinski_vc_addon_FancyButtons extends Koshinski_vc_addon_Module {
 				'link_type'			=> 'href',
 				'href_link'			=> '',
 				'js_callback_link'	=> '',
+				'display_icon'		=> 'no',
+				'icon_fontawesome'	=> '',
+				'icon_alignment'	=> 'left',
 				
 				
 				'additional_css' 	=> ''
@@ -144,14 +147,18 @@ class Koshinski_vc_addon_FancyButtons extends Koshinski_vc_addon_Module {
 		$timing 	= ( !empty($timing) ) 		? (float)$timing : '0.75';
 		$href_link 	= ( !empty($href_link) )	? vc_build_link( $href_link ) : '';
 		$js_callback_link = ( !empty($js_callback_link) ) ? rawurldecode( base64_decode( $js_callback_link ) ) : '';
-		
+		$display_icon = ( !empty( $display_icon ) ) ? $display_icon : 'no';
 		
 		
 		$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, vc_shortcode_custom_css_class( $additional_css, ' ' ), '', $atts );
 		
 		$svg_id 	= 'js-ripple-' . $randomID;
 		$button_id 	= 'js-ripple-btn-' . $randomID;
-
+		
+		if( $display_icon == 'yes' && !empty($icon_fontawesome) && !empty($icon_alignment) ){
+			vc_icon_element_fonts_enqueue( 'fontawesome' );
+			$icon_fontawesome = '<i class="icon-'.$icon_alignment.' ' . esc_attr( $icon_fontawesome ) . '"></i>';
+		}
 
 		if( !empty($css) ){
 			$css = rawurldecode( base64_decode( $css ) );
@@ -184,7 +191,12 @@ DATA;
 							{$link_target}.location.href = '{$href_link['url']}';
 				
 DATA;
-				
+			}
+			
+			if( $icon_alignment == 'right' ){
+				$label = sprintf( '%1$s%2$s', $label, $icon_fontawesome );
+			}else{
+				$label = sprintf( '%2$s%1$s', $label, $icon_fontawesome );
 			}
 			
 			$output .= <<<DATA
@@ -236,6 +248,48 @@ DATA;
 					),
 					array(
 						'type' => 'dropdown',
+						'heading' => __('Display Icon', $this->shortcode_textdomain),
+						'param_name' => 'display_icon',
+						'description' => '',
+						'value' => array(
+							__( 'No', $this->shortcode_textdomain ) => 'no',
+							__( 'Yes', $this->shortcode_textdomain ) => 'yes',
+						),
+						'group' => __('Style Settings', $this->shortcode_textdomain),
+					),
+					array(
+						'type' => 'dropdown',
+						'heading' => __('Icon Alignment', $this->shortcode_textdomain),
+						'param_name' => 'icon_alignment',
+						'description' => '',
+						'value' => array(
+							__( 'Left', $this->shortcode_textdomain ) => 'left',
+							__( 'Right', $this->shortcode_textdomain ) => 'right',
+						),
+						'group' => __('Style Settings', $this->shortcode_textdomain),
+						'dependency' => array(
+							'element' => 'display_icon',
+							'not_empty' => false,
+							'value' => array( 'yes' )
+						),
+					),
+					array(
+						'type' => 'iconpicker',
+						'heading' => __( 'Icon', $this->shortcode_textdomain ),
+						'param_name' => 'icon_fontawesome',
+						'settings' => array(
+							'emptyIcon' => false, // default true, display an "EMPTY" icon? - if false it will display first icon from set as default.
+							'iconsPerPage' => 200, // default 100, how many icons per/page to display
+						),
+						'group' => __('Style Settings', $this->shortcode_textdomain),
+						'dependency' => array(
+							'element' => 'display_icon',
+							'not_empty' => false,
+							'value' => array( 'yes' )
+						),
+					),
+					array(
+						'type' => 'dropdown',
 						'heading' => __('Variants', $this->shortcode_textdomain),
 						'param_name' => 'variants',
 						'description' => '',
@@ -246,7 +300,7 @@ DATA;
 						'type' => 'textfield',
 						'heading' => __('Timing', $this->shortcode_textdomain),
 						'param_name' => 'timing',
-						'description' => __('eg. 0.75', $this->shortcode_textdomain),
+						'description' => __('Timing in seconds; 0.75', $this->shortcode_textdomain),
 						'value' => '0.75',
 						'group' => __('Style Settings', $this->shortcode_textdomain)
 					),
@@ -276,9 +330,10 @@ DATA;
 					),
 					array(
 						'type' => 'textarea_raw_html',
+						'edit_field_class' => 'vc_col-xs-12 vc_column textarea_small',
 						'heading' => __('JS Callback', $this->shortcode_textdomain),
 						'param_name' => 'js_callback_link',
-						'description' => __('Enter Functionname, incl. Parameters; eg. test(123)', $this->shortcode_textdomain),
+						'description' => __('Enter Functionname, incl. Parameters:   test(123);', $this->shortcode_textdomain),
 						'value' => '',
 						'group' => __('Style Settings', $this->shortcode_textdomain),
 						'dependency' => array(
@@ -287,8 +342,6 @@ DATA;
 							'value' => array( 'js_callback' )
 						),
 					),
-
-
 
 
 					array(

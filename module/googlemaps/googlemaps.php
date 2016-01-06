@@ -106,7 +106,7 @@ class Koshinski_vc_addon_GoogleMaps extends Koshinski_vc_addon_Module {
 		$htmlid = ( !empty($htmlid) ) ? ' id="'.$htmlid . $randomID.'"' : '';
 		$jsonstyles = ( !empty($json_styles) ) ? urldecode(base64_decode($json_styles)) : "''";
 		$display_overlay = ( !empty($display_overlay) && $display_overlay == 'true' ) ? true : false;
-		$mode = ( !empty($mode) ) ? $mode : 'minheight';
+		/* $mode = ( !empty($mode) ) ? $mode : 'minheight'; */
 		$min_height = ( !empty($min_height) ) ? (int)$min_height : 350;
 		$language = ( !empty($language) ) ? $language : 'de';
 		$map_marker = ( !empty($map_marker) ) ? wp_get_attachment_image_src( $map_marker, 'thumbnail' )[0] : '';
@@ -116,7 +116,7 @@ class Koshinski_vc_addon_GoogleMaps extends Koshinski_vc_addon_Module {
 		$content = ( !empty($content) ) ? wpb_js_remove_wpautop($content,true) : '';
 		
 		$output_min_height = ' data-minheight="'.$min_height.'"';
-		$output_mode = ' data-mode="'.$mode.'"';
+		$output_mode = ' data-mode="minheight"';
 		
 		if( !empty($rawhtmlid) ){
 			
@@ -208,6 +208,7 @@ class Koshinski_vc_addon_GoogleMaps extends Koshinski_vc_addon_Module {
 						'group' => __('Map Settings', $this->shortcode_textdomain)
 					),
 					array(
+						'admin_label' => true,
 						'type' => 'textfield',
 						'heading' => __('Latitude', $this->shortcode_textdomain),
 						'param_name' => 'lat',
@@ -216,6 +217,7 @@ class Koshinski_vc_addon_GoogleMaps extends Koshinski_vc_addon_Module {
 						'group' => __('Map Settings', $this->shortcode_textdomain)
 					),
 					array(
+						'admin_label' => true,
 						'type' => 'textfield',
 						'heading' => __('Longitude', $this->shortcode_textdomain),
 						'param_name' => 'lng',
@@ -253,28 +255,11 @@ class Koshinski_vc_addon_GoogleMaps extends Koshinski_vc_addon_Module {
 					
 					
 					array(
-						'type' => 'dropdown',
-						'heading' => __('Full Height', $this->shortcode_textdomain),
-						'param_name' => 'mode',
-						'admin_label' => true,
-						'description' => '',
-						'value' => array(
-							__('Full Height', $this->shortcode_textdomain) => 'fullheight',
-							__('Min Height', $this->shortcode_textdomain) => 'minheight'
-						),
-						'group' => __('Visual Settings', $this->shortcode_textdomain)
-					),
-					array(
 						'type' => 'textfield',
 						'heading' => __('Min Height', $this->shortcode_textdomain),
 						'param_name' => 'min_height',
 						'description' => __('in px', $this->shortcode_textdomain),
 						'value' => '350',
-						'dependency' => array(
-							'element' => 'mode',
-							'not_empty' => false,
-							'value' => array( 'minheight' )
-						),
 						'group' => __('Visual Settings', $this->shortcode_textdomain)
 					),					
 					array(
@@ -299,33 +284,7 @@ class Koshinski_vc_addon_GoogleMaps extends Koshinski_vc_addon_Module {
 						'value' => '',
 						'group' => __('Overlay Settings', $this->shortcode_textdomain)
 					),
-/* 					array(
-						'type' => 'colorpicker',
-						'heading' => __('Overlay Background Color', $this->shortcode_textdomain),
-						'param_name' => 'overlay_background_color',
-						'description' => '',
-						'value' => '',
-						'dependency' => array(
-							'element' => 'display_overlay',
-							'not_empty' => true,
-							'value' => array('true')
-						),
-						'group' => __('Overlay Settings', $this->shortcode_textdomain)
-					),
 					array(
-						'type' => 'colorpicker',
-						'heading' => __('Overlay Text Color', $this->shortcode_textdomain),
-						'param_name' => 'overlay_text_color',
-						'description' => '',
-						'value' => '',
-						'dependency' => array(
-							'element' => 'display_overlay',
-							'not_empty' => true,
-							'value' => array('true')
-						),
-						'group' => __('Overlay Settings', $this->shortcode_textdomain)
-					),
- */					array(
 						'type' => 'textarea_html',
 						'heading' => __('Overlay Content', $this->shortcode_textdomain),
 						'param_name' => 'content',

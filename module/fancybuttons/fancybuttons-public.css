@@ -4,8 +4,10 @@
 	-moz-appearance: none;
 	appearance: none;
 	border: none;
+	-webkit-box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.3), 0 3px 3px rgba(0, 0, 0, 0.15), 0 3px 2px -2px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.3), 0 3px 3px rgba(0, 0, 0, 0.15), 0 3px 2px -2px rgba(0, 0, 0, 0.2);
 	box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.3), 0 3px 3px rgba(0, 0, 0, 0.15), 0 3px 2px -2px rgba(0, 0, 0, 0.2);
-	font-weight: bold;
+	font-weight: inherit;
 	color: #fff;
 	font-size: 1em;
 	text-shadow: 0 -0.5px 1px rgba(0, 0, 0, 0.5);
@@ -13,6 +15,13 @@
 	margin: 0;
 	position: relative;
 	display: inline-block;
+	text-transform:inherit;
+}
+.koshinski-fancybuttons-wrap button .fa.icon-left {
+	margin-right:0.5em;
+}
+.koshinski-fancybuttons-wrap button .fa.icon-right {
+	margin-left:0.5em;
 }
 
 .button.styl-material {
