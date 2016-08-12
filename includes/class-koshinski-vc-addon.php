@@ -80,7 +80,7 @@ class Koshinski_vc_addon {
 		$this->textdomain = 'koshinski-vc-addon';
 		
 		self::$shortcode_category_name = 'koshinski addons';
-		self::$shortcode_prefix = 'koshinski-vc-addon-';
+		self::$shortcode_prefix = 'koshinski_vc_addon_';
 		self::$shortcode_textdomain = $this->textdomain;
 
 		$this->load_dependencies();
@@ -133,9 +133,14 @@ class Koshinski_vc_addon {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'module/fancybuttons/fancybuttons.php';
 		
-		
+		/**
+		 * Modul: Micro Data
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'module/microdata/microdata.php';		
 		
 
+		
+		
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.

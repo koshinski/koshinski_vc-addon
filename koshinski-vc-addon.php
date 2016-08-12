@@ -16,7 +16,7 @@
  * Plugin Name:       koshinski - Visual Composer Addon
  * Plugin URI:        https://www.koshinski.de/
  * Description:       Erweitert die Palette der vom Visual Composer angebotenen Shortcodes.
- * Version:           1.1.0
+ * Version:           1.2.0
  * Author:            koshinski
  * Author URI:        https://www.koshinski.de/
  * License:           GPL-2.0+
