@@ -2,8 +2,9 @@
 	
 }
 .microdata-label {
-	font-weight:bold;
-	padding-right:0.75em;
+	font-weight:inherit;
+	padding-right:0.5em;
+	float:left;
 }
 .microdata-item {
 	
